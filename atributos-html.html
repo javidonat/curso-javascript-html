@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Modificar atributos HTML</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/curso.css">
+  <style>
+    pre { background: #272822; color: #f8f8f2; padding: 1rem; overflow-x: auto; border-radius: 6px; }
+    .demo { background: #fff; border: 1px solid #ccc; border-radius: 6px; padding: 1rem; margin: 1rem 0; }
+    button { padding: 0.5rem 1rem; margin-right: 0.5rem; cursor: pointer; }
+    input { padding: 0.5rem; margin-right: 0.5rem; }
+  </style>
+</head>
+
+<body>
+
+  <header class="cabecera">
+    <h1>Curso de JavaScript aplicado a HTML</h1>
+  </header>
+
+  <nav class="menu">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="contenido-html.html">Modificar contenido HTML</a></li>
+      <li><a href="estilos-css.html">Modificar estilos CSS</a></li>
+      <li><a href="atributos-html.html">Modificar atributos HTML</a></li>
+    </ul>
+  </nav>
+
+  <main class="contenido">
+    <h2>Modificar atributos HTML</h2>
+    <p>
+      Los atributos (<code>href</code>, <code>src</code>, <code>disabled</code>,
+      <code>placeholder</code>...) se pueden leer y cambiar desde JavaScript con
+      <code>getAttribute</code>, <code>setAttribute</code> y <code>removeAttribute</code>.
+    </p>
+
+    <h3>Ejemplo 1: cambiar el destino de un enlace</h3>
+    <div class="demo">
+      <p><a id="enlace" href="index.html">Este enlace lleva al Home</a></p>
+      <button id="btnEnlace">Cambiar enlace</button>
+    </div>
+
+    <pre><code>const enlace = document.getElementById("enlace");
+
+document.getElementById("btnEnlace").addEventListener("click", function () {
+  // Cambia a dónde apunta el enlace
+  enlace.setAttribute("href", "https://developer.mozilla.org/es/");
+  // Hace que se abra en una pestaña nueva
+  enlace.setAttribute("target", "_blank");
+  // Cambia el texto visible del enlace
+  enlace.textContent = "Ahora voy a MDN (pestaña nueva)";
+});</code></pre>
+
+    <h4>Explicación</h4>
+    <ul>
+      <li><code>setAttribute("href", valor)</code> cambia el atributo <code>href</code>, es decir, el destino del enlace.</li>
+      <li><code>setAttribute("target", "_blank")</code> crea el atributo <code>target</code>, que no existía, y hace que el enlace abra una pestaña nueva.</li>
+      <li><code>textContent</code> cambia solo el texto que se ve, sin tocar los atributos.</li>
+    </ul>
+
+    <h3>Ejemplo 2: habilitar y deshabilitar un campo</h3>
+    <div class="demo">
+      <input type="text" id="campo" placeholder="Escribe aquí">
+      <button id="btnDeshabilitar">Deshabilitar</button>
+      <button id="btnHabilitar">Habilitar</button>
+    </div>
+
+    <pre><code>const campo = document.getElementById("campo");
+
+document.getElementById("btnDeshabilitar").addEventListener("click", function () {
+  // Un atributo booleano solo necesita existir, por eso el valor es ""
+  campo.setAttribute("disabled", "");
+  campo.setAttribute("placeholder", "Campo deshabilitado");
+});
+
+document.getElementById("btnHabilitar").addEventListener("click", function () {
+  // removeAttribute elimina el atributo por completo
+  campo.removeAttribute("disabled");
+  campo.setAttribute("placeholder", "Escribe aquí");
+  // getAttribute lee el valor actual de un atributo
+  console.log(campo.getAttribute("placeholder"));
+});</code></pre>
+
+    <h4>Explicación</h4>
+    <ul>
+      <li><code>disabled</code> es un atributo booleano: si está presente, el campo queda bloqueado.</li>
+      <li><code>removeAttribute("disabled")</code> lo elimina y el campo vuelve a poder usarse.</li>
+      <li><code>getAttribute("placeholder")</code> devuelve el valor del atributo; aquí se muestra en la consola del navegador (F12).</li>
+    </ul>
+  </main>
+
+  <footer class="pie">
+    <p>&copy; 2026 Curso de JavaScript aplicado a HTML. Todos los derechos reservados.</p>
+  </footer>
+
+  <script>
+    // Ejemplo 1
+    const enlace = document.getElementById("enlace");
+
+    document.getElementById("btnEnlace").addEventListener("click", function () {
+      enlace.setAttribute("href", "https://developer.mozilla.org/es/");
+      enlace.setAttribute("target", "_blank");
+      enlace.textContent = "Ahora voy a MDN (pestaña nueva)";
+    });
+
+    // Ejemplo 2
+    const campo = document.getElementById("campo");
+
+    document.getElementById("btnDeshabilitar").addEventListener("click", function () {
+      campo.setAttribute("disabled", "");
+      campo.setAttribute("placeholder", "Campo deshabilitado");
+    });
+
+    document.getElementById("btnHabilitar").addEventListener("click", function () {
+      campo.removeAttribute("disabled");
+      campo.setAttribute("placeholder", "Escribe aquí");
+      console.log(campo.getAttribute("placeholder"));
+    });
+  </script>
+
+</body>
+
+</html>
