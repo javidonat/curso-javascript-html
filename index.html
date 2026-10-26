@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Pràctica - Sistemes de Control de Versions</title>
+  <style>
+    body { max-width: 900px; margin: 0 auto; padding: 1rem; font-family: Arial, sans-serif; line-height: 1.5; }
+    img { max-width: 100%; height: auto; }
+  </style>
+</head>
+<body>
+
+  <h1>Pràctica - Sistemes de Control de Versions</h1>
+  <p>Javi</p>
+  <p>Mi usuario de GitHub: <a href="https://github.com/javidonat">javidonat</a></p>
+  <p>Repositorio: <a href="https://github.com/javidonat/curso-javascript-html">https://github.com/javidonat/curso-javascript-html</a></p>
+
+  <h2>1. Introducción teórica</h2>
+
+  <h3>¿Qué es Git?</h3>
+  <p>
+    Git es un programa que guarda todas las versiones de un proyecto.
+    Si algo sale mal, se puede volver a una versión anterior.
+    También permite que varias personas trabajen en el mismo proyecto sin borrar el trabajo de las demás.
+    GitHub es la página web donde se guarda el proyecto en internet.
+  </p>
+
+  <h3>¿Qué es Git Flow?</h3>
+  <p>
+    Git Flow es una forma de ordenar el trabajo con Git. Usa ramas con nombres fijos, y cada una sirve para algo distinto:
+  </p>
+  <ul>
+    <li><b>main</b>: guarda las versiones finales.</li>
+    <li><b>develop</b>: es donde se juntan las cosas nuevas mientras se trabaja.</li>
+    <li><b>feature/...</b>: una rama para cada cosa nueva. Sale de develop y vuelve a develop.</li>
+    <li><b>release/...</b>: sirve para preparar una versión nueva antes de pasarla a main.</li>
+    <li><b>hotfix/...</b>: sirve para arreglar algo rápido de la versión final. Sale de main.</li>
+  </ul>
+
+  <h3>¿Por qué lo usamos en este proyecto?</h3>
+  <ul>
+    <li>Somos 3 personas y cada una hace una parte distinta. Con una rama para cada parte, nadie pisa el trabajo de los demás.</li>
+    <li>El trabajo queda ordenado: se sabe qué se hizo y quién lo hizo.</li>
+    <li>La versión final (main) siempre está limpia, porque lo nuevo se prueba antes en develop.</li>
+    <li>El cliente ve que trabajamos con un método serio.</li>
+  </ul>
+
+  <p>
+    Para simular a tres personas, antes de trabajar como cada usuario cambio mi nombre en Git
+    con <code>git config user.name</code> y <code>git config user.email</code>.
+    Además, escribo el nombre del usuario al final de cada mensaje de commit, por ejemplo <code>[Usuario2]</code>.
+  </p>
+
+  <h2>2. Proceso paso a paso</h2>
+
+  <h3>2.1 Usuario 1: crea el repositorio y la estructura inicial</h3>
+
+  <img src="img/01-crear-repositorio.png" alt="Crear repositorio en GitHub">
+  <p>Entro en GitHub y creo un repositorio nuevo que se llama <code>curso-javascript-html</code>. Lo dejo público y con README.</p>
+
+  <img src="img/02-clonar.png" alt="git clone">
+  <p>Con <code>git clone</code> me bajo el repositorio a mi ordenador. Después entro en la carpeta con <code>cd</code>.</p>
+
+  <img src="img/03-config-usuario1.png" alt="Configurar Usuario1">
+  <p>Le digo a Git que ahora soy <code>Usuario1</code>, con su nombre y su correo. Con el último comando compruebo que el nombre está bien.</p>
+
+  <img src="img/04-git-flow-init.png" alt="git flow init">
+  <p>Preparo Git Flow con <code>git flow init</code>. Dejo los nombres que propone por defecto y solo escribo <code>v</code> como prefijo de las versiones. Así se crea la rama <code>develop</code>.</p>
+
+  <img src="img/05-push-main-develop.png" alt="Subir main y develop">
+  <p>Subo las dos ramas principales, <code>main</code> y <code>develop</code>, a GitHub con <code>git push</code>.</p>
+
+  <img src="img/06-vscode-index.png" alt="index.html en Visual Studio Code">
+  <p>Copio la plantilla HTML5 Boilerplate en mi carpeta y escribo <code>index.html</code>: la cabecera con el nombre del curso, el menú con el enlace a Home, una descripción del curso y el pie de página.</p>
+
+  <img src="img/07-vscode-css.png" alt="curso.css en Visual Studio Code">
+  <p>Creo el archivo <code>curso.css</code> con los estilos de la cabecera (con imagen de fondo), del menú y del pie de página.</p>
+
+  <img src="img/08-commit-push-usuario1.png" alt="add, commit y push del Usuario1">
+  <p>
+    Con <code>git add .</code> preparo los archivos, con <code>git commit</code> los guardo con un mensaje que lleva <code>[Usuario1]</code>
+    y con <code>git push origin develop</code> los subo a la rama <code>develop</code> de GitHub.
+    Los avisos de <code>LF will be replaced by CRLF</code> no son errores, son avisos de Windows.
+  </p>
+
+  <h3>2.2 Usuario 2: crea dos features</h3>
+
+  <h4>Feature 1: contingutHTML (Modificar contenido HTML)</h4>
+
+  <img src="img/09-config-usuario2.png" alt="Configurar Usuario2">
+  <p>Cambio mi nombre en Git a <code>Usuario2</code> y compruebo que se ha cambiado.</p>
+
+  <img src="img/10-feature-start-contingut.png" alt="feature start contingutHTML">
+  <p>Con <code>git flow feature start contingutHTML</code> creo la rama <code>feature/contingutHTML</code> a partir de <code>develop</code>. Git me pasa a esa rama.</p>
+
+  <img src="img/11-vscode-contenido.png" alt="contenido-html.html en Visual Studio Code">
+  <p>Creo la página <code>contenido-html.html</code>, con ejemplos de JavaScript que cambian el contenido de la página con <code>innerHTML</code> y la explicación de cada código.</p>
+
+  <img src="img/12-nav-contenido.png" alt="Enlace en el menú">
+  <p>Añado en el menú de <code>index.html</code> el enlace a "Modificar contenido HTML".</p>
+
+  <img src="img/13-commit-publish-finish-contingut.png" alt="commit, publish y finish de contingutHTML">
+  <p>
+    <code>git add .</code> y <code>git commit</code> guardan los cambios (con <code>[Usuario2]</code> en el mensaje).
+    <code>git flow feature publish</code> sube la rama a GitHub.
+    <code>git flow feature finish -k</code> une la feature con <code>develop</code> (con <code>-k</code> la rama no se borra).
+    Por último, <code>git push origin develop</code> sube <code>develop</code> a GitHub.
+  </p>
+
+  <h4>Feature 2: atributsHTML (Modificar atributos HTML)</h4>
+
+  <img src="img/14-feature-start-atributs.png" alt="feature start atributsHTML">
+  <p>Con <code>git flow feature start atributsHTML</code> creo la rama <code>feature/atributsHTML</code> a partir de <code>develop</code>, que ya tiene la primera feature.</p>
+
+  <img src="img/15-vscode-atributos.png" alt="atributos-html.html en Visual Studio Code">
+  <p>Creo la página <code>atributos-html.html</code>, con ejemplos de JavaScript que cambian atributos de HTML (<code>setAttribute</code>, <code>getAttribute</code> y <code>removeAttribute</code>) y su explicación.</p>
+
+  <img src="img/16-nav-atributos.png" alt="Enlace en el menú">
+  <p>Añado en el menú de <code>index.html</code> el enlace a "Modificar atributos HTML".</p>
+
+  <img src="img/17-commit-publish-finish-atributs.png" alt="commit, publish y finish de atributsHTML">
+  <p>Hago los mismos pasos que en la feature anterior: <code>add</code>, <code>commit</code> con <code>[Usuario2]</code>, <code>feature publish</code>, <code>feature finish -k</code> y <code>push</code> de <code>develop</code>.</p>
+
+  <h3>2.3 Usuario 3: crea una feature y la release v1.0</h3>
+
+  <img src="img/18-config-usuario3-feature-start.png" alt="Configurar Usuario3 y feature start estilsCSS">
+  <p>Cambio mi nombre en Git a <code>Usuario3</code> y creo la rama <code>feature/estilsCSS</code> con <code>git flow feature start estilsCSS</code>.</p>
+
+  <img src="img/19-vscode-estilos.png" alt="estilos-css.html en Visual Studio Code">
+  <p>Creo la página <code>estilos-css.html</code>, con ejemplos de JavaScript que cambian los estilos de un elemento con <code>element.style</code>. El código lleva comentarios que explican cada línea.</p>
+
+  <img src="img/20-nav-estilos.png" alt="Enlace en el menú">
+  <p>Añado en el menú de <code>index.html</code> el enlace a "Modificar estilos CSS".</p>
+
+  <img src="img/21-commit-publish-finish-estils.png" alt="commit, publish y finish de estilsCSS">
+  <p>Guardo los cambios con <code>commit</code> (con <code>[Usuario3]</code>), subo la rama con <code>feature publish</code>, la uno a <code>develop</code> con <code>feature finish -k</code> y subo <code>develop</code> con <code>push</code>.</p>
+
+  <h4>La release v1.0</h4>
+  <p>Ahora <code>develop</code> ya tiene las tres features. Creo la release con estos comandos:</p>
+  <pre>git flow release start 1.0
+git flow release finish -m "Release v1.0" 1.0</pre>
+
+  <img src="img/22-nano-merge-release.png" alt="nano merge de la release">
+  <p>Al terminar la release, Git abre el editor <code>nano</code> para escribir el mensaje de la unión con <code>main</code>. Añado <code>[Usuario3]</code> y guardo con Ctrl+O, Enter y Ctrl+X.</p>
+
+  <img src="img/23-nano-merge-tag.png" alt="nano merge del tag">
+  <p>El editor se abre otra vez, ahora para unir el tag <code>v1.0</code> con <code>develop</code>. Añado <code>[Usuario3]</code> y guardo igual.</p>
+
+  <img src="img/24-log-grafo-release.png" alt="git log --graph">
+  <p>Miro el historial dibujado con <code>git log --graph --oneline --all --decorate</code>. Se ven las tres features, el commit del Usuario 1, la unión de la release en <code>main</code> y el tag <code>v1.0</code>.</p>
+
+  <img src="img/25-push-tag-v1.png" alt="Subir main, develop y tags">
+  <p>Subo <code>main</code>, <code>develop</code> y los tags a GitHub con <code>git push origin main develop --tags</code>. Sale <code>[new tag] v1.0</code>.</p>
+
+  <img src="img/26-github-releases-tag.png" alt="1 tag en GitHub">
+  <p>Compruebo en GitHub que el tag ya está subido: aparece "1 tag".</p>
+
+  <img src="img/27-github-release-publicada.png" alt="Release v1.0 en GitHub">
+  <p>En GitHub creo la release a partir del tag <code>v1.0</code>, con un título y unas notas que dicen lo que incluye la versión.</p>
+
+  <h3>2.4 Usuario 1: hace un hotfix</h3>
+
+  <img src="img/28-config-usuario1-hotfix-start.png" alt="Usuario1 y hotfix start">
+  <p>Vuelvo a ser <code>Usuario1</code> y creo el hotfix con <code>git flow hotfix start milloresV_1_0</code>. La rama <code>hotfix/milloresV_1_0</code> sale de <code>main</code>.</p>
+
+  <img src="img/29-vscode-contenido-mejorado.png" alt="contenido-html.html mejorado">
+  <p>Mejoro <code>contenido-html.html</code>: añado un botón para vaciar la lista, un tercer ejemplo que compara <code>innerHTML</code> con <code>textContent</code>, una tabla resumen y un aviso de seguridad.</p>
+
+  <img src="img/30-nano-merge-hotfix.png" alt="nano merge del hotfix">
+  <p>Al terminar el hotfix se abre <code>nano</code> para el mensaje de la unión con <code>main</code>. Añado <code>[Usuario1]</code> y guardo.</p>
+
+  <img src="img/31-nano-merge-tag-hotfix.png" alt="nano merge del tag del hotfix">
+  <p>Se abre otra vez, para unir el tag del hotfix con <code>develop</code>. Añado <code>[Usuario1]</code> y guardo. Git Flow pone la <code>v</code> delante de los tags solo, y yo también la escribí, por eso el tag se llama <code>vv1.0.1</code>.</p>
+
+  <img src="img/32-log-grafo-hotfix.png" alt="git log --graph después del hotfix">
+  <p>Miro otra vez el historial. Ahora se ve el commit del hotfix, su unión con <code>main</code> y con <code>develop</code>, y el tag nuevo.</p>
+
+  <img src="img/33-tag-branch-lista.png" alt="git tag y git branch -a">
+  <p>Con <code>git tag</code> veo los tags (<code>v1.0</code> y <code>vv1.0.1</code>). Con <code>git branch -a</code> veo todas las ramas: <code>main</code>, <code>develop</code>, las tres <code>feature/...</code> y <code>hotfix/milloresV_1_0</code>.</p>
+
+  <img src="img/34-push-tag-hotfix.png" alt="Subir main, develop y el tag del hotfix">
+  <p>Subo todo a GitHub con <code>git push origin main develop --tags</code>.</p>
+
+  <h2>3. Proyecto de GitHub y colaborador</h2>
+  <ul>
+    <li>Añado al usuario <code>antoni-gimenez</code> como colaborador del repositorio (Settings → Collaborators).</li>
+    <li>Creo un proyecto con un tablero en la pestaña Projects y lo uno al repositorio. También le doy acceso a <code>antoni-gimenez</code>.</li>
+    <li>
+      En el tablero hay una tarjeta por cada feature y por el hotfix:
+      <code>feature/contingutHTML</code>, <code>feature/atributsHTML</code>, <code>feature/estilsCSS</code> y <code>hotfix/milloresV_1_0</code>.
+      Cada tarjeta tiene su descripción, su etiqueta, la persona que la hizo, la rama y el commit. Todas están en la columna Done.
+    </li>
+  </ul>
+
+  <!--
+    Cuando tengas las capturas de esta parte, guárdalas en la carpeta img/ y quita las marcas de comentario:
+
+  <img src="img/35-colaborador.png" alt="Colaborador antoni-gimenez">
+  <p>Añado a antoni-gimenez como colaborador del repositorio.</p>
+
+  <img src="img/36-proyecto-tablero.png" alt="Tablero del proyecto">
+  <p>Este es el tablero del proyecto, con las tarjetas de las tres features y del hotfix.</p>
+  -->
+
+  <h2>4. Resultado final</h2>
+  <ul>
+    <li>Ramas <code>main</code> y <code>develop</code>.</li>
+    <li>Ramas de las features: <code>feature/contingutHTML</code>, <code>feature/atributsHTML</code> y <code>feature/estilsCSS</code>.</li>
+    <li>Rama del hotfix: <code>hotfix/milloresV_1_0</code>.</li>
+    <li>Rama <code>gh-pages</code>, con esta documentación.</li>
+    <li>Tags <code>v1.0</code> y <code>vv1.0.1</code>, y la release v1.0 publicada en GitHub.</li>
+    <li>Un proyecto de GitHub con las features y el hotfix, y a <code>antoni-gimenez</code> como colaborador.</li>
+  </ul>
+
+</body>
+</html>
