@@ -11,6 +11,10 @@
     pre { background: #272822; color: #f8f8f2; padding: 1rem; overflow-x: auto; border-radius: 6px; }
     .demo { background: #fff; border: 1px solid #ccc; border-radius: 6px; padding: 1rem; margin: 1rem 0; }
     button { padding: 0.5rem 1rem; margin-right: 0.5rem; cursor: pointer; }
+    table { border-collapse: collapse; width: 100%; margin: 1rem 0; background: #fff; }
+    th, td { border: 1px solid #ccc; padding: 0.5rem; text-align: left; }
+    th { background: #1e3c72; color: #fff; }
+    .aviso { background: #fff3cd; border-left: 4px solid #ffc107; padding: 0.75rem 1rem; margin: 1rem 0; }
   </style>
 </head>
 
@@ -66,6 +70,7 @@ document.getElementById("btnRestaurar").addEventListener("click", function () {
     <div class="demo">
       <ul id="lista"></ul>
       <button id="btnAnadir">Añadir elemento</button>
+      <button id="btnVaciar">Vaciar lista</button>
     </div>
 
     <pre><code>const lista = document.getElementById("lista");
@@ -74,13 +79,53 @@ let contador = 1;
 document.getElementById("btnAnadir").addEventListener("click", function () {
   lista.innerHTML += "&lt;li&gt;Elemento número " + contador + "&lt;/li&gt;";
   contador++;
+});
+
+document.getElementById("btnVaciar").addEventListener("click", function () {
+  lista.innerHTML = "";   // una cadena vacía elimina todo el contenido
+  contador = 1;
 });</code></pre>
 
     <h4>Explicación</h4>
     <ul>
       <li>El operador <code>+=</code> añade HTML nuevo al contenido que ya había, en lugar de reemplazarlo.</li>
       <li>La variable <code>contador</code> aumenta en cada clic para numerar los elementos.</li>
+      <li>Asignar <code>""</code> a <code>innerHTML</code> vacía el elemento, y reiniciamos el contador.</li>
     </ul>
+
+    <h3>Ejemplo 3: innerHTML frente a textContent</h3>
+    <div class="demo">
+      <p id="comparar">Texto de prueba</p>
+      <button id="btnInner">Usar innerHTML</button>
+      <button id="btnTextContent">Usar textContent</button>
+    </div>
+
+    <pre><code>const comparar = document.getElementById("comparar");
+const codigo = "&lt;b&gt;Texto en negrita&lt;/b&gt;";
+
+document.getElementById("btnInner").addEventListener("click", function () {
+  comparar.innerHTML = codigo;      // el navegador interpreta la etiqueta &lt;b&gt;
+});
+
+document.getElementById("btnTextContent").addEventListener("click", function () {
+  comparar.textContent = codigo;    // se muestra tal cual, como texto plano
+});</code></pre>
+
+    <table>
+      <thead>
+        <tr><th>Propiedad</th><th>Interpreta etiquetas HTML</th><th>Cuándo usarla</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>innerHTML</code></td><td>Sí</td><td>Cuando necesitas insertar etiquetas (negritas, listas, enlaces...)</td></tr>
+        <tr><td><code>textContent</code></td><td>No</td><td>Cuando solo quieres mostrar texto, sobre todo si viene del usuario</td></tr>
+      </tbody>
+    </table>
+
+    <div class="aviso">
+      <strong>Importante:</strong> nunca insertes con <code>innerHTML</code> texto escrito por
+      un usuario sin comprobarlo, porque podría incluir código malicioso (ataque XSS).
+      En esos casos usa <code>textContent</code>.
+    </div>
   </main>
 
   <footer class="pie">
@@ -107,6 +152,23 @@ document.getElementById("btnAnadir").addEventListener("click", function () {
     document.getElementById("btnAnadir").addEventListener("click", function () {
       lista.innerHTML += "<li>Elemento número " + contador + "</li>";
       contador++;
+    });
+
+    document.getElementById("btnVaciar").addEventListener("click", function () {
+      lista.innerHTML = "";
+      contador = 1;
+    });
+
+    // Ejemplo 3
+    const comparar = document.getElementById("comparar");
+    const codigo = "<b>Texto en negrita</b>";
+
+    document.getElementById("btnInner").addEventListener("click", function () {
+      comparar.innerHTML = codigo;
+    });
+
+    document.getElementById("btnTextContent").addEventListener("click", function () {
+      comparar.textContent = codigo;
     });
   </script>
 
