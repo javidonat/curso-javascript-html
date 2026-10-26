@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Modificar contenido HTML</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/curso.css">
+  <style>
+    pre { background: #272822; color: #f8f8f2; padding: 1rem; overflow-x: auto; border-radius: 6px; }
+    .demo { background: #fff; border: 1px solid #ccc; border-radius: 6px; padding: 1rem; margin: 1rem 0; }
+    button { padding: 0.5rem 1rem; margin-right: 0.5rem; cursor: pointer; }
+  </style>
+</head>
+
+<body>
+
+  <header class="cabecera">
+    <h1>Curso de JavaScript aplicado a HTML</h1>
+  </header>
+
+  <nav class="menu">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="contenido-html.html">Modificar contenido HTML</a></li>
+      <li><a href="estilos-css.html">Modificar estilos CSS</a></li>
+      <li><a href="atributos-html.html">Modificar atributos HTML</a></li>
+    </ul>
+  </nav>
+
+  <main class="contenido">
+    <h2>Modificar contenido HTML</h2>
+    <p>
+      La propiedad <code>innerHTML</code> permite leer y cambiar el contenido
+      HTML que hay dentro de un elemento desde JavaScript.
+    </p>
+
+    <h3>Ejemplo 1: cambiar el contenido de un párrafo</h3>
+    <div class="demo">
+      <p id="texto">Este es el texto original del párrafo.</p>
+      <button id="btnCambiar">Cambiar contenido</button>
+      <button id="btnRestaurar">Restaurar</button>
+    </div>
+
+    <pre><code>const texto = document.getElementById("texto");
+const textoOriginal = texto.innerHTML;
+
+document.getElementById("btnCambiar").addEventListener("click", function () {
+  texto.innerHTML = "&lt;strong&gt;¡Contenido modificado!&lt;/strong&gt; Ahora hay &lt;em&gt;etiquetas HTML&lt;/em&gt; nuevas.";
+});
+
+document.getElementById("btnRestaurar").addEventListener("click", function () {
+  texto.innerHTML = textoOriginal;
+});</code></pre>
+
+    <h4>Explicación</h4>
+    <ul>
+      <li><code>document.getElementById("texto")</code> busca en la página el elemento con <code>id="texto"</code> y lo guarda en una variable.</li>
+      <li><code>texto.innerHTML</code> devuelve el HTML que hay dentro del párrafo. Lo guardamos en <code>textoOriginal</code> para poder restaurarlo.</li>
+      <li><code>addEventListener("click", ...)</code> ejecuta la función cuando el usuario pulsa el botón.</li>
+      <li>Al asignar un valor a <code>texto.innerHTML</code>, el contenido del párrafo se reemplaza y el navegador interpreta las etiquetas HTML nuevas.</li>
+    </ul>
+
+    <h3>Ejemplo 2: añadir elementos a una lista</h3>
+    <div class="demo">
+      <ul id="lista"></ul>
+      <button id="btnAnadir">Añadir elemento</button>
+    </div>
+
+    <pre><code>const lista = document.getElementById("lista");
+let contador = 1;
+
+document.getElementById("btnAnadir").addEventListener("click", function () {
+  lista.innerHTML += "&lt;li&gt;Elemento número " + contador + "&lt;/li&gt;";
+  contador++;
+});</code></pre>
+
+    <h4>Explicación</h4>
+    <ul>
+      <li>El operador <code>+=</code> añade HTML nuevo al contenido que ya había, en lugar de reemplazarlo.</li>
+      <li>La variable <code>contador</code> aumenta en cada clic para numerar los elementos.</li>
+    </ul>
+  </main>
+
+  <footer class="pie">
+    <p>&copy; 2026 Curso de JavaScript aplicado a HTML. Todos los derechos reservados.</p>
+  </footer>
+
+  <script>
+    // Ejemplo 1
+    const texto = document.getElementById("texto");
+    const textoOriginal = texto.innerHTML;
+
+    document.getElementById("btnCambiar").addEventListener("click", function () {
+      texto.innerHTML = "<strong>¡Contenido modificado!</strong> Ahora hay <em>etiquetas HTML</em> nuevas.";
+    });
+
+    document.getElementById("btnRestaurar").addEventListener("click", function () {
+      texto.innerHTML = textoOriginal;
+    });
+
+    // Ejemplo 2
+    const lista = document.getElementById("lista");
+    let contador = 1;
+
+    document.getElementById("btnAnadir").addEventListener("click", function () {
+      lista.innerHTML += "<li>Elemento número " + contador + "</li>";
+      contador++;
+    });
+  </script>
+
+</body>
+
+</html>

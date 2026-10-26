@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Modificar estilos CSS</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/curso.css">
+  <style>
+    pre { background: #272822; color: #f8f8f2; padding: 1rem; overflow-x: auto; border-radius: 6px; }
+    .demo { background: #fff; border: 1px solid #ccc; border-radius: 6px; padding: 1rem; margin: 1rem 0; }
+    button { padding: 0.5rem 1rem; margin: 0.25rem 0.5rem 0.25rem 0; cursor: pointer; }
+    #caja { padding: 1rem; margin-bottom: 1rem; border: 2px solid #888; }
+  </style>
+</head>
+
+<body>
+
+  <header class="cabecera">
+    <h1>Curso de JavaScript aplicado a HTML</h1>
+  </header>
+
+  <nav class="menu">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="contenido-html.html">Modificar contenido HTML</a></li>
+      <li><a href="estilos-css.html">Modificar estilos CSS</a></li>
+      <li><a href="atributos-html.html">Modificar atributos HTML</a></li>
+    </ul>
+  </nav>
+
+  <main class="contenido">
+    <h2>Modificar estilos CSS</h2>
+    <p>
+      Con la propiedad <code>style</code> de un elemento podemos cambiar sus
+      estilos CSS desde JavaScript. Las propiedades compuestas se escriben en
+      <em>camelCase</em>: <code>background-color</code> pasa a ser
+      <code>backgroundColor</code>.
+    </p>
+
+    <h3>Ejemplo: modificar los estilos de una caja</h3>
+    <div class="demo">
+      <div id="caja">Esta es la caja cuyos estilos vamos a modificar.</div>
+      <button id="btnColores">Cambiar colores</button>
+      <button id="btnTamano">Aumentar letra</button>
+      <button id="btnOcultar">Ocultar / mostrar</button>
+      <button id="btnRestaurar">Restaurar</button>
+    </div>
+
+    <pre><code>// Guardamos la caja en una variable para usarla después
+const caja = document.getElementById("caja");
+
+// Botón 1: cambia el color del texto y el color de fondo
+document.getElementById("btnColores").addEventListener("click", function () {
+  caja.style.color = "#ffffff";            // color del texto
+  caja.style.backgroundColor = "#1e3c72";  // background-color en camelCase
+});
+
+// Botón 2: aumenta el tamaño de la letra en 4 píxeles
+let tamano = 16;
+document.getElementById("btnTamano").addEventListener("click", function () {
+  tamano = tamano + 4;
+  caja.style.fontSize = tamano + "px";     // hay que añadir la unidad
+});
+
+// Botón 3: oculta o muestra la caja
+let visible = true;
+document.getElementById("btnOcultar").addEventListener("click", function () {
+  visible = !visible;                      // invierte el valor true/false
+  caja.style.opacity = visible ? "1" : "0.2";
+});
+
+// Botón 4: elimina todos los estilos aplicados con JavaScript
+document.getElementById("btnRestaurar").addEventListener("click", function () {
+  caja.style.cssText = "";
+  tamano = 16;
+  visible = true;
+});</code></pre>
+
+    <h4>Explicación</h4>
+    <ul>
+      <li><code>caja.style.color</code> y <code>caja.style.backgroundColor</code> modifican los estilos en línea del elemento.</li>
+      <li>Los valores con unidades, como el tamaño de letra, se escriben como texto: <code>"20px"</code>.</li>
+      <li><code>visible ? "1" : "0.2"</code> es el operador ternario: si <code>visible</code> es verdadero usa <code>"1"</code>, y si no, <code>"0.2"</code>.</li>
+      <li><code>style.cssText = ""</code> borra todos los estilos en línea y la caja vuelve a su aspecto original.</li>
+    </ul>
+  </main>
+
+  <footer class="pie">
+    <p>&copy; 2026 Curso de JavaScript aplicado a HTML. Todos los derechos reservados.</p>
+  </footer>
+
+  <script>
+    // Guardamos la caja en una variable para usarla después
+    const caja = document.getElementById("caja");
+
+    // Botón 1: cambia el color del texto y el color de fondo
+    document.getElementById("btnColores").addEventListener("click", function () {
+      caja.style.color = "#ffffff";            // color del texto
+      caja.style.backgroundColor = "#1e3c72";  // background-color en camelCase
+    });
+
+    // Botón 2: aumenta el tamaño de la letra en 4 píxeles
+    let tamano = 16;
+    document.getElementById("btnTamano").addEventListener("click", function () {
+      tamano = tamano + 4;
+      caja.style.fontSize = tamano + "px";     // hay que añadir la unidad
+    });
+
+    // Botón 3: oculta o muestra la caja
+    let visible = true;
+    document.getElementById("btnOcultar").addEventListener("click", function () {
+      visible = !visible;                      // invierte el valor true/false
+      caja.style.opacity = visible ? "1" : "0.2";
+    });
+
+    // Botón 4: elimina todos los estilos aplicados con JavaScript
+    document.getElementById("btnRestaurar").addEventListener("click", function () {
+      caja.style.cssText = "";
+      tamano = 16;
+      visible = true;
+    });
+  </script>
+
+</body>
+
+</html>
